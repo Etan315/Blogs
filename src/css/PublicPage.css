@@ -1,0 +1,104 @@
+.logo {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-bg);
+  max-width: var(--container-md);
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: calc(var(--radius) + 4px);
+  text-align: start;
+  padding: 24px;
+  box-shadow: var(--shadow)
+}
+
+section.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section.auth-container div {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+section.auth-container div h2 {
+  font-size: var(--text-3xl);
+}
+
+section.auth-container div p {
+  color: var(--highlight2-8);
+}
+
+.h-form {
+  font-size: var(--text-xl);
+}
+
+.p-form,
+.h-form {
+  text-align: start;
+}
+
+div.title {
+  margin-top: 20px;
+}
+
+
+h1.title {
+  font-size: var(--text-3xl);
+  font-family: var(--font-serif);
+}
+
+h1.title.main {
+  font-size: var(--text-5xl);
+}
+
+.title h2 {
+  font-family: var(--font-serif);
+  margin-bottom: 5px;
+}
+
+span.user-name {
+  margin: 0px 15px;
+  color: var(--highlight2-8)
+}
+
+button.btn.logout {
+  background-color: var(--primary);
+  color: var(--highlight2);
+  border: 1px solid var(--highlight2);
+  margin: 0px 15px;
+}
+
+
+button.btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+}
+
+.btn.sign-in button {
+  border: 1px solid var(--highlight2);
+  color: var(--highlight2);
+  background-color: var(--primary);
+}
+
+.btn.get-started {
+  color: var(--main-bg);
+  background-color: var(--highlight2);
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
