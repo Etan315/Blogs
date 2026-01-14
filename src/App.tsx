@@ -1,12 +1,11 @@
-
-import { useState } from 'react';
+import { useState } from "react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootState } from "./store";
 import { PublicBlogList } from "./pages/PublicBlogList";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import { AddPost } from './pages/AddPost';
+import { AddPost } from "./pages/AddPost";
 import { supabase } from "./supabaseClient";
 import { setUser } from "./store/authSlice";
 import "./App.css";
@@ -29,16 +28,20 @@ function App() {
 
   const handlePostCreated = () => {
     // 2. Instead of reloading, we just change this number
-    setRefreshTrigger(prev => prev + 1);
+    setRefreshTrigger((prev) => prev + 1);
     setIsModalOpen(false);
+  };
+
+  const handleRefresh = () => {
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   return (
     <Router>
-      <AddPost 
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-      onPostCreated={handlePostCreated} // Simple way to refresh the list
+      <AddPost
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPostCreated={handlePostCreated} // Simple way to refresh the list
       />
 
       <header>
@@ -49,16 +52,19 @@ function App() {
           {!user ? (
             <>
               <Link to="/login" className="btn sign-in">
-                <button >Sign in</button>
+                <button>Sign in</button>
               </Link>
               <Link to="/register" className="btn get-started">
-                <button >Get started</button>
+                <button>Get started</button>
               </Link>
             </>
           ) : (
             <>
               <span className="user-name">{user.email}</span>
-              <button className="btn new-post" onClick={() => setIsModalOpen(true)}>
+              <button
+                className="btn new-post"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <img src={editIcon} alt="SignIn" />
                 New Post
               </button>
@@ -76,14 +82,17 @@ function App() {
           <Route
             path="/"
             element={
-              <div className='main-container'>
+              <div className="main-container">
                 <h1 className="title main">Stories & Ideas</h1>
-                <p className='paragraph main'>
+                <p className="paragraph main">
                   A collection of thoughts, insights, and creative explorations
                   from our community of writers.
                 </p>
                 {/* 3. Pass the trigger to the list, it's pass through PublicBlogList.tsx */}
-                <PublicBlogList refreshTrigger={refreshTrigger} />
+                <PublicBlogList
+                  refreshTrigger={refreshTrigger}
+                  onRefresh={handleRefresh}
+                />
               </div>
             }
           />
