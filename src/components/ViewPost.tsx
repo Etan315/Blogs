@@ -1,10 +1,31 @@
-interface ViewPostProps {
-  post: any | null;
-  onClose: () => void;
-}
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { type RootState } from "../store";
+import { supabase } from "../supabaseClient"; // Import supabase
+import { EditPost } from "./modals/EditPost";
 
-export const ViewPost = ({ post, onClose }: ViewPostProps) => {
+export const ViewPost = ({ post, onClose, onRefresh }: any) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state for delete
+
   if (!post) return null;
+
+  const isAuthor = user && user.id === post.user_id;
+
+  // Instant Delete Function
+  const handleInstantDelete = async () => {
+    setLoading(true);
+    const { error } = await supabase.from("posts").delete().eq("id", post.id);
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+    } else {
+      onRefresh(); // Refresh the PublicBlogList background
+      onClose();   // Close the view modal
+    }
+  };
 
   return (
     <div className="modal-overlay view-post">
@@ -15,15 +36,26 @@ export const ViewPost = ({ post, onClose }: ViewPostProps) => {
             <span className="dot post">&bull;</span>
             <span className="timestamp">
               {new Date(post.created_at).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
+                month: 'long', day: 'numeric', year: 'numeric'
               })}
             </span>
           </div>
-          <button className="close-button" onClick={onClose}>
-            &times;
-          </button>
+          
+          <div className="header-actions">
+            {isAuthor && (
+              <>
+                <button className="icon-btn edit" onClick={() => setIsEditOpen(true)}>✎</button>
+                <button 
+                  className="icon-btn delete" 
+                  onClick={handleInstantDelete}
+                  disabled={loading}
+                >
+                  {loading ? "..." : "🗑"}
+                </button>
+              </>
+            )}
+            <button className="close-button" onClick={onClose}>&times;</button>
+          </div>
         </header>
 
         <article className="full-post">
@@ -34,6 +66,13 @@ export const ViewPost = ({ post, onClose }: ViewPostProps) => {
             ))}
           </div>
         </article>
+
+        <EditPost 
+          post={post} 
+          isOpen={isEditOpen} 
+          onClose={() => setIsEditOpen(false)} 
+          onUpdate={() => { onRefresh(); onClose(); }} 
+        />
       </div>
     </div>
   );
