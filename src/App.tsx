@@ -76,15 +76,15 @@ function App() {
           <Route
             path="/"
             element={
-              <main>
+              <div className='main-container'>
                 <h1 className="title main">Stories & Ideas</h1>
-                <p>
+                <p className='paragraph main'>
                   A collection of thoughts, insights, and creative explorations
                   from our community of writers.
                 </p>
                 {/* 3. Pass the trigger to the list, it's pass through PublicBlogList.tsx */}
                 <PublicBlogList refreshTrigger={refreshTrigger} />
-              </main>
+              </div>
             }
           />
           <Route path="/login" element={<Login />} />

@@ -59,6 +59,16 @@ h1.title.main {
   font-size: var(--text-5xl);
 }
 
+h1.title.main {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+p.paragraph.main {
+  margin-bottom: 30px;
+  color: var(--highlight1-6);
+}
+
 .title h2 {
   font-family: var(--font-serif);
   margin-bottom: 5px;

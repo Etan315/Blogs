@@ -69,7 +69,11 @@ button:hover {
 }
 
 main {
-  padding: 0 clamp(50px, 12vw, 300px);
+  padding: 0 clamp(50px, 22vw, 300px);
+}
+
+.main-container {
+  min-width: 300px;
 }
 
 input {
@@ -91,4 +95,40 @@ label {
   margin-bottom: 5px;
 }
 
-.dot { margin: 0 2px 0 6px}
+.dot {
+  margin: 0 2px 0 6px;
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 10px 30px;
+  }
+  .button.btn.logout {
+    margin: unset;
+  }
+}
+
+@media (max-width: 500px) {
+  main,
+  .modal-overlay.view-post {
+    padding: 0px 50px;
+  }
+
+  nav {
+    align-items: end;
+    flex-direction: column;
+  }
+
+  .btn.get-started,
+  button.btn.logout,
+  span.user-name {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 400px) {
+  main,
+  .modal-overlay.view-post {
+    padding: 10px;
+  }
+}
