@@ -100,6 +100,10 @@ label {
 }
 
 @media (max-width: 700px) {
+  .modal-overlay.view-post, .modal-overlay {
+    padding: 0px 70px;
+  }
+
   header {
     padding: 10px 30px;
   }
@@ -108,10 +112,17 @@ label {
   }
 }
 
+@media (max-width: 600px) {
+  main,
+  .modal-overlay.view-post, .modal-overlay {
+    padding: 0px 55px;
+  }
+}
+
 @media (max-width: 500px) {
   main,
-  .modal-overlay.view-post {
-    padding: 0px 50px;
+  .modal-overlay.view-post, .modal-overlay {
+    padding: 0px 40px;
   }
 
   nav {

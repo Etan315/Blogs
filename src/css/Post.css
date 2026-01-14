@@ -6,7 +6,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 clamp(50px, 25vw, 400px);
+  padding: 0 clamp(50px, 20vw, 400px);
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .modal-content {
@@ -25,7 +28,7 @@ form.add-post {
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 47px);
+  height: calc(100% - 70px);
 }
 
 form.add-post input,
@@ -37,10 +40,39 @@ form.add-post textarea {
   padding: 5px 8px;
 }
 
+form.edit-form {
+  background-color: unset;
+  max-width: unset;
+  width: unset;
+  margin-bottom: unset;
+  box-shadow: unset;
+  height: calc(100% - 25px);
+  padding: 20px 0;
+}
+
+textarea.edit-textarea {
+  height: 100%;
+  margin-bottom: 20px;
+  font-family: var(--font-sans);
+  border-radius: 5px;
+  border: 1px solid var(--highlight2-5);
+  padding: 5px 12px;
+  font-size: var(--text-sm);
+}
+
 .modal-content h1 {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
   margin-block: 20px;
+}
+
+header.modal-header-simple {
+  padding: 5px 0 10px 0;
+}
+
+h1.h1-edit {
+  margin: unset;
+  padding: unset;
 }
 
 .modal-actions {
@@ -131,7 +163,7 @@ article.full-post {
   border-radius: 5px;
   margin: 15px 0;
   /* box-shadow: var(--shadow); */
-  box-shadow: var(--shadow2)
+  box-shadow: var(--shadow2);
 }
 
 .post-item h2 {
@@ -161,4 +193,27 @@ article.full-post {
 .timestamp {
   opacity: 0.6;
   color: var(--highlight2);
+}
+
+.post-item {
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.post-item:hover {
+  background-color: #f9f9f9;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 10px;
+  color: #666;
+}
+.icon-btn.delete:hover {
+  color: #d9534f;
+}
+.icon-btn.edit:hover {
+  color: #0275d8;
 }

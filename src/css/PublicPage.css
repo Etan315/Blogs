@@ -112,3 +112,8 @@ button.btn {
   height: 18px;
   fill: currentColor;
 }
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+}
