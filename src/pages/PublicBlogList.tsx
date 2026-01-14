@@ -4,9 +4,13 @@ import { ViewPost } from "../components/ViewPost"; // Import the new component
 
 interface PublicBlogListProps {
   refreshTrigger?: number;
+  onRefresh: () => void; // Add this prop
 }
 
-export const PublicBlogList = ({ refreshTrigger }: PublicBlogListProps) => {
+export const PublicBlogList = ({
+  refreshTrigger,
+  onRefresh,
+}: PublicBlogListProps) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
@@ -36,7 +40,11 @@ export const PublicBlogList = ({ refreshTrigger }: PublicBlogListProps) => {
   return (
     <div className="blog-list-container">
       {/* The Modal Component */}
-      <ViewPost post={selectedPost} onClose={() => setSelectedPost(null)} />
+      <ViewPost
+        post={selectedPost}
+        onClose={() => setSelectedPost(null)}
+        onRefresh={onRefresh}
+      />
 
       {posts.map((post) => (
         <article
