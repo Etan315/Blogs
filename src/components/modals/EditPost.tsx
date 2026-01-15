@@ -20,19 +20,18 @@ export const EditPost = ({
 
   if (!isOpen) return null;
 
-  // This updates Supabase and calls onUpdate (which is onRefresh from App)
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase
       .from("posts")
-      .update({ title, content })
+      .update({ created_at: new Date().toISOString(), title, content })
       .eq("id", post.id);
 
     setLoading(false);
     if (!error) {
-      onUpdate(); // Triggers the list refresh in the background
-      onClose(); // Closes the Edit Modal
+      onUpdate();
+      onClose();
     }
   };
 
