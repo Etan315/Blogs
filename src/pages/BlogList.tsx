@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
-import { ViewPost } from "../components/ViewPost"; // Import the new component
+import { ViewPost } from "../components/ViewPost";
 
 interface PublicBlogListProps {
   refreshTrigger?: number;
-  onRefresh: () => void; // Add this prop
+  onRefresh: () => void;
 }
 
 export const PublicBlogList = ({
@@ -14,7 +14,7 @@ export const PublicBlogList = ({
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedPost, setSelectedPost] = useState<any | null>(null); // New state
+  const [selectedPost, setSelectedPost] = useState<any | null>(null); 
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -39,7 +39,6 @@ export const PublicBlogList = ({
 
   return (
     <div className="blog-list-container">
-      {/* The Modal Component */}
       <ViewPost
         post={selectedPost}
         onClose={() => setSelectedPost(null)}
@@ -50,7 +49,7 @@ export const PublicBlogList = ({
         <article
           key={post.id}
           className="post-item"
-          onClick={() => setSelectedPost(post)} // Trigger modal on click
+          onClick={() => setSelectedPost(post)}
         >
           <div className="user-post-details">
             <span>{post.author_name}</span>{" "}

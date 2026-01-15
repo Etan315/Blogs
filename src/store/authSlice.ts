@@ -1,20 +1,17 @@
-// The Memory (Redux)
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type User } from '@supabase/supabase-js';
 
-//Defines what slice stores
 interface AuthState {
-  user: any | null; //null means “not logged in”.
+  user: any | null;
 }
 
 const initialState: AuthState = { user: null };
 
-// This is a "reducer"—a specific instruction that says "Update the notepad with this user's information."
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    // This function updates the "user" in our store
-    setUser: (state, action: PayloadAction<any>) => {
+    setUser: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
     },
   },

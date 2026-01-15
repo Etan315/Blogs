@@ -14,21 +14,23 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+
   const user = useSelector((state: RootState) => state.auth.user);
 
-  if (!isOpen) return null; // Don't render anything if not open
+  if (!isOpen) return null; 
 
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     const displayName = user?.user_metadata?.display_name || user?.email;
+    
     const { error } = await supabase.from("posts").insert([
       {
         title,
         content,
         user_id: user?.id,
-        author_name: displayName, // Save the name here
+        author_name: displayName,
       },
     ]);
 
@@ -39,8 +41,8 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
     } else {
       setTitle("");
       setContent("");
-      onPostCreated(); // Refresh the list
-      onClose(); // Close the modal
+      onPostCreated();
+      onClose();
     }
   };
 
@@ -51,7 +53,7 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
         <form className="add-post" onSubmit={handlePublish}>
           <label htmlFor="title">Title</label>
           <input
-            id="id"
+            id="title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
