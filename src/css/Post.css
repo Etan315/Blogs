@@ -58,6 +58,7 @@ textarea.edit-textarea {
   border: 1px solid var(--highlight2-5);
   padding: 5px 12px;
   font-size: var(--text-sm);
+  resize: none;
 }
 
 .modal-content h1 {

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { type RootState } from "../store";
-import { supabase } from "../supabaseClient"; // Import supabase
+import { supabase } from "../supabaseClient";
 import { EditPost } from "./modals/EditPost";
 
 export const ViewPost = ({ post, onClose, onRefresh }: any) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [loading, setLoading] = useState(false); // Add loading state for delete
+  const [loading, setLoading] = useState(false);
 
   if (!post) return null;
 
@@ -22,8 +22,8 @@ export const ViewPost = ({ post, onClose, onRefresh }: any) => {
     if (error) {
       alert(error.message);
     } else {
-      onRefresh(); // Refresh the PublicBlogList background
-      onClose();   // Close the view modal
+      onRefresh();
+      onClose();
     }
   };
 
@@ -35,18 +35,25 @@ export const ViewPost = ({ post, onClose, onRefresh }: any) => {
             <span className="author-name">{post.author_name}</span>
             <span className="dot post">&bull;</span>
             <span className="timestamp">
-              {new Date(post.created_at).toLocaleDateString('en-US', {
-                month: 'long', day: 'numeric', year: 'numeric'
+              {new Date(post.created_at).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
               })}
             </span>
           </div>
-          
+
           <div className="header-actions">
             {isAuthor && (
               <>
-                <button className="icon-btn edit" onClick={() => setIsEditOpen(true)}>✎</button>
-                <button 
-                  className="icon-btn delete" 
+                <button
+                  className="icon-btn edit"
+                  onClick={() => setIsEditOpen(true)}
+                >
+                  ✎
+                </button>
+                <button
+                  className="icon-btn delete"
                   onClick={handleInstantDelete}
                   disabled={loading}
                 >
@@ -54,24 +61,31 @@ export const ViewPost = ({ post, onClose, onRefresh }: any) => {
                 </button>
               </>
             )}
-            <button className="close-button" onClick={onClose}>&times;</button>
+            <button className="close-button" onClick={onClose}>
+              &times;
+            </button>
           </div>
         </header>
 
         <article className="full-post">
           <h1 className="post-title">{post.title}</h1>
           <div className="post-content">
-            {post.content.split('\n').map((paragraph: string, index: number) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {post.content
+              .split("\n")
+              .map((paragraph: string, index: number) => (
+                <p key={index}>{paragraph}</p>
+              ))}
           </div>
         </article>
 
-        <EditPost 
-          post={post} 
-          isOpen={isEditOpen} 
-          onClose={() => setIsEditOpen(false)} 
-          onUpdate={() => { onRefresh(); onClose(); }} 
+        <EditPost
+          post={post}
+          isOpen={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          onUpdate={() => {
+            onRefresh();
+            onClose();
+          }}
         />
       </div>
     </div>
