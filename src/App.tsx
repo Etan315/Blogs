@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootState } from "./store";
-import { PublicBlogList } from "./pages/PublicBlogList";
+import { PublicBlogList } from "./pages/BlogList";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { AddPost } from "./pages/AddPost";
