@@ -46,15 +46,17 @@ export const EditPost = ({
           </button>
         </header>
         <form className="edit-form" onSubmit={handleUpdate}>
-          <label>Title</label>
+          <label htmlFor="title">Title</label>
           <input
+            id="title"
             className="edit-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-          <label>Content</label>
+          <label htmlFor="content">Content</label>
           <textarea
+            id="content"
             className="edit-textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}

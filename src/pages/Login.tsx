@@ -44,6 +44,7 @@ export const Login = () => {
         </div>
         <label htmlFor="email">Email</label>
         <input
+          id="email"
           type="email"
           placeholder="john@example.com"
           value={email}
@@ -54,6 +55,7 @@ export const Login = () => {
         <input
           type="password"
           placeholder="Password"
+          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

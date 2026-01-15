@@ -47,12 +47,12 @@ const handleSignUp = async (e: React.FormEvent) => {
           <h3 className='h-form'>Create Account</h3>
           <p className='p-form'>Fill in your details to get started</p>
         </div>
-        <label>Username</label>
-        <input type="text" placeholder="Your name" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <label htmlFor="username">Username</label>
+        <input type="text" id="username" placeholder="Your name" value={username} onChange={(e) => setUsername(e.target.value)} required />
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" placeholder="john@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="email" id="email" name="email" placeholder="john@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="*****" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="password" id="password" name="password" placeholder="*****" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit" disabled={loading}>{loading ? 'Creating...' : 'Register'}</button>
       </form>
       <p>Already have an account? <Link to="/login">Login here</Link></p>

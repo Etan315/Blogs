@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import { useSelector } from "react-redux";
 import { type RootState } from "../store";
-import './../css/Post.css';
+import "./../css/Post.css";
 
 interface AddPostProps {
   isOpen: boolean;
@@ -21,16 +21,16 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const displayName = user?.user_metadata?.display_name || user?.email;
     const { error } = await supabase.from("posts").insert([
-    {
-      title,
-      content,
-      user_id: user?.id,
-      author_name: displayName, // Save the name here
-    },
-  ]);
+      {
+        title,
+        content,
+        user_id: user?.id,
+        author_name: displayName, // Save the name here
+      },
+    ]);
 
     setLoading(false);
 
@@ -40,7 +40,7 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
       setTitle("");
       setContent("");
       onPostCreated(); // Refresh the list
-      onClose();       // Close the modal
+      onClose(); // Close the modal
     }
   };
 
@@ -49,8 +49,9 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
       <div className="modal-content">
         <h1>Create New Post</h1>
         <form className="add-post" onSubmit={handlePublish}>
-          <label>Title</label>
+          <label htmlFor="title">Title</label>
           <input
+            id="id"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -58,8 +59,9 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
             required
           />
 
-          <label>Content</label>
+          <label htmlFor="content">Content</label>
           <textarea
+            id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Write your story..."
