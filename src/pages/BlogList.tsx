@@ -2,19 +2,16 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { ViewPost } from "../components/ViewPost";
 
-interface PublicBlogListProps {
+interface BlogListProps {
   refreshTrigger?: number;
   onRefresh: () => void;
 }
 
-export const PublicBlogList = ({
-  refreshTrigger,
-  onRefresh,
-}: PublicBlogListProps) => {
+export const BlogList = ({ refreshTrigger, onRefresh }: BlogListProps) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedPost, setSelectedPost] = useState<any | null>(null); 
+  const [selectedPost, setSelectedPost] = useState<any | null>(null);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -63,7 +60,7 @@ export const PublicBlogList = ({
         </article>
       ))}
 
-      <div className="pagination-controls" style={{ marginTop: "20px" }}>
+      <div className="pagination-controls">
         <button disabled={page === 0} onClick={() => setPage(page - 1)}>
           Previous
         </button>

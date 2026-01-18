@@ -21,7 +21,7 @@ const handleSignUp = async (e: React.FormEvent) => {
       password,
       options: {
         data: {
-          display_name: username, // Saving username to metadata
+          display_name: username, 
         },
       },
     });

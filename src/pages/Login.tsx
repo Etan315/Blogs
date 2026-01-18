@@ -24,7 +24,7 @@ export const Login = () => {
     } else {
       console.log("login data: ", data.user);
       dispatch(setUser(data.user));
-      navigate("/"); // Redirect to home
+      navigate("/");
     }
     setLoading(false);
   };

@@ -18,15 +18,15 @@ export const DeletePost = ({
 
   if (!isOpen) return null;
 
-  // This deletes from Supabase and calls onDeleted
+  // This deletes article from Supabase and calls onDeleted
   const handleDelete = async () => {
     setLoading(true);
     const { error } = await supabase.from("posts").delete().eq("id", postId);
     setLoading(false);
 
     if (!error) {
-      onDeleted(); // Triggers the list refresh in the background
-      onClose(); // Closes the Delete Confirmation Modal
+      onDeleted(); 
+      onClose();
     }
   };
 

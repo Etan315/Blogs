@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootState } from "./store";
-import { PublicBlogList } from "./pages/BlogList";
+import { BlogList } from "./pages/BlogList";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { AddPost } from "./pages/AddPost";
@@ -41,7 +41,7 @@ function App() {
       <AddPost
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onPostCreated={handlePostCreated} // Simple way to refresh the list
+        onPostCreated={handlePostCreated}
       />
 
       <header>
@@ -88,8 +88,9 @@ function App() {
                   A collection of thoughts, insights, and creative explorations
                   from our community of writers.
                 </p>
-                {/* 3. Pass the trigger to the list, it's pass through PublicBlogList.tsx */}
-                <PublicBlogList
+
+                {/* This will display list of blog from supagbase*/}
+                <BlogList
                   refreshTrigger={refreshTrigger}
                   onRefresh={handleRefresh}
                 />
