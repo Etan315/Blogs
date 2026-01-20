@@ -1,0 +1,123 @@
+form.comment-form {
+  width: 100%;
+  max-width: unset;
+}
+
+.comment-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.add-photo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  /* Matching the text color from image_6a0baf.png */
+  color: #5f6368;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.add-photo-btn:hover {
+  background-color: #f1f3f4;
+}
+
+.icon-photo {
+  width: 20px;
+  height: 20px;
+  /* This ensures the SVG icon matches the button color */
+  filter: opacity(0.7);
+}
+
+.file-name-preview {
+  font-size: 0.8rem;
+  color: #1a73e8;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.action-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.comment-item {
+  display: flex;
+  flex-direction: column;
+}
+
+img.comment-img {
+  width: 85%;
+  margin: 15px auto;
+}
+
+textarea.comment-input {
+  font-size: var(--text-sm);
+  padding: 5px;
+  font-family: inherit;
+  height: 80px;
+  resize: none;
+  border-radius: calc(var(--radius) + 2px);
+}
+
+.comment-header {
+  font-family: var(--font-serif);
+  margin-block: 15px;
+  font-size: var(--text-2xl);
+}
+
+.signin-prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signin-prompt-container p {
+  color: #5f6368;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.btn-signin-prompt {
+  padding: 10px 24px;
+  background-color: var(--main-bg);
+  color: #000000;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-signin-prompt:hover {
+  background-color: #f8f9fa;
+  border-color: #d2d2d2;
+}
+
+.header-comment {
+  display: flex;
+  justify-content: space-between;
+  margin-block: 5px;
+}
+
+.paragraph-comment {
+  line-height: var(--lines);
+  font-size: var(--text-sm);
+}

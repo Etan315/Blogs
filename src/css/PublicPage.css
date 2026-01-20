@@ -14,7 +14,7 @@ form {
   border-radius: calc(var(--radius) + 4px);
   text-align: start;
   padding: 24px;
-  box-shadow: var(--shadow)
+  box-shadow: var(--shadow);
 }
 
 section.auth-container {
@@ -49,7 +49,6 @@ div.title {
   margin-top: 20px;
 }
 
-
 h1.title {
   font-size: var(--text-3xl);
   font-family: var(--font-serif);
@@ -76,7 +75,7 @@ p.paragraph.main {
 
 span.user-name {
   margin: 0px 15px;
-  color: var(--highlight2-8)
+  color: var(--highlight2-8);
 }
 
 button.btn.logout {
@@ -85,7 +84,6 @@ button.btn.logout {
   border: 1px solid var(--highlight2);
   margin: 0px 15px;
 }
-
 
 button.btn {
   display: flex;
@@ -114,7 +112,24 @@ button.btn {
 }
 
 .pagination-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.comment-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.comment-count-pill {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  padding-block: 10px;
+}
+
+.demo {
+  opacity: 0.6;
+  margin-top: 10px;
 }
