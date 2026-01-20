@@ -9,6 +9,7 @@
   --highlight4: #842a2a;
   --highlight2-8: hsla(0, 31%, 34%, 0.8);
   --highlight2-5: hsla(0, 31%, 34%, 0.5);
+  --lines: 1.625;
 
   /* --muted-foreground: 20 10% 45%; */
 
@@ -26,8 +27,8 @@
   --container-md: 28rem;
   --radius: 0.625rem;
   --shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  --shadow2: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  --shadow2:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 * {
@@ -100,8 +101,14 @@ label {
   margin: 0 2px 0 6px;
 }
 
+hr.divider {
+  margin-block: 15px;
+  opacity: 0.6;
+}
+
 @media (max-width: 700px) {
-  .modal-overlay.view-post, .modal-overlay {
+  .modal-overlay.view-post,
+  .modal-overlay {
     padding: 0px 70px;
   }
 
@@ -115,14 +122,16 @@ label {
 
 @media (max-width: 600px) {
   main,
-  .modal-overlay.view-post, .modal-overlay {
+  .modal-overlay.view-post,
+  .modal-overlay {
     padding: 0px 55px;
   }
 }
 
 @media (max-width: 500px) {
   main,
-  .modal-overlay.view-post, .modal-overlay {
+  .modal-overlay.view-post,
+  .modal-overlay {
     padding: 0px 40px;
   }
 
