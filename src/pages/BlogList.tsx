@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { ViewPost } from "../components/ViewPost";
+import CommentIcon from "./../assets/ic-comments.svg";
 
 interface BlogListProps {
   refreshTrigger?: number;
@@ -24,12 +25,17 @@ export const BlogList = ({ refreshTrigger, onRefresh }: BlogListProps) => {
 
     const { data, count, error } = await supabase
       .from("posts")
-      .select("*", { count: "exact" })
+      .select(`*,comments:comments(count)`, { count: "exact" })
       .order("created_at", { ascending: false })
       .range(from, to);
 
     if (!error && data) {
-      setPosts(data);
+      const postsWithCommentCount = data.map((post) => ({
+        ...post,
+        commentCount: post.comments?.[0]?.count || 0,
+      }));
+
+      setPosts(postsWithCommentCount);
       setTotalCount(count || 0);
     }
   };

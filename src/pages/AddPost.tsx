@@ -3,6 +3,8 @@ import { supabase } from "../supabaseClient";
 import { useSelector } from "react-redux";
 import { type RootState } from "../store";
 import "./../css/Post.css";
+import { uploadImage } from "../utils/uploadImage";
+import PhotoIcon from "../assets/ic-photo.svg";
 
 interface AddPostProps {
   isOpen: boolean;
@@ -13,6 +15,7 @@ interface AddPostProps {
 export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [commentImage, setCommentImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state: RootState) => state.auth.user);
@@ -23,33 +26,42 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
     e.preventDefault();
     setLoading(true);
 
-    const displayName = user?.user_metadata?.display_name || user?.email;
-    
-    const { error } = await supabase.from("posts").insert([
-      {
-        title,
-        content,
-        user_id: user?.id,
-        author_name: displayName,
-      },
-    ]);
+    try {
+      let publicImageUrl = null;
 
-    setLoading(false);
+      if (commentImage) {
+        publicImageUrl = await uploadImage(commentImage);
+      }
 
-    if (error) {
-      alert(error.message);
-    } else {
-      setTitle("");
-      setContent("");
-      onPostCreated();
-      onClose();
+      const displayName = user?.user_metadata?.display_name || user?.email;
+
+      const { error } = await supabase.from("posts").insert([
+        {
+          title,
+          content,
+          user_id: user?.id,
+          author_name: displayName,
+          image_url: publicImageUrl,
+        },
+      ]);
+
+      if (!error) {
+        setTitle("");
+        setContent("");
+        setCommentImage(null);
+        onPostCreated();
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h1>Create New Post</h1>
+        <h2>Create a New Story</h2>
         <form className="add-post" onSubmit={handlePublish}>
           <label htmlFor="title">Title</label>
           <input
@@ -70,6 +82,24 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
             className="text-content"
             required
           />
+
+          <div className="comment-upload-wrapper">
+            <input
+              type="file"
+              id="comment-image-upload"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => setCommentImage(e.target.files?.[0] || null)}
+            />
+            <label htmlFor="comment-image-upload" className="add-photo-btn">
+              <img src={PhotoIcon} alt="Add Photo" className="icon-photo" />
+              <span>Add Photo</span>
+            </label>
+
+            {commentImage && (
+              <span className="file-name-preview">{commentImage.name}</span>
+            )}
+          </div>
 
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="btn-cancel">
