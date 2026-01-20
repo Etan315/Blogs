@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import { type RootState } from "../store";
 import { supabase } from "../supabaseClient";
 import { EditPost } from "./modals/EditPost";
+import { CommentSection } from "./CommentSection";
+import { Link } from 'react-router-dom';
+import "./../css/PostMedia.css";
 
 export const ViewPost = ({ post, onClose, onRefresh }: any) => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -76,6 +79,18 @@ export const ViewPost = ({ post, onClose, onRefresh }: any) => {
                 <p key={index}>{paragraph}</p>
               ))}
           </div>
+
+          <hr className="divider" />
+          {user ? (
+            <CommentSection postId={post.id} onCommentAdded={onRefresh}/>
+          ) : (
+            <div className="signin-prompt-container">
+              <p>Sign in to join the conversation</p>
+              <Link to="/login" className="btn-signin-prompt">
+                Sign In
+              </Link>
+            </div>
+          )}
         </article>
 
         <EditPost
