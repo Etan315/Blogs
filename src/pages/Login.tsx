@@ -67,6 +67,7 @@ export const Login = () => {
       <p>
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
+      <span className="demo">Demo: user@example.com / user123</span>
     </section>
   );
 };
