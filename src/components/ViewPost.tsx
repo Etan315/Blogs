@@ -4,7 +4,7 @@ import { type RootState } from "../store";
 import { supabase } from "../supabaseClient";
 import { EditPost } from "./modals/EditPost";
 import { CommentSection } from "./CommentSection";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./../css/PostMedia.css";
 
 export const ViewPost = ({ post, onClose, onRefresh }: any) => {
@@ -79,10 +79,15 @@ export const ViewPost = ({ post, onClose, onRefresh }: any) => {
                 <p key={index}>{paragraph}</p>
               ))}
           </div>
+          {post.image_url && (
+            <div className="list-image-container">
+              <img src={post.image_url} alt="" className="list-post-image" />
+            </div>
+          )}
 
           <hr className="divider" />
           {user ? (
-            <CommentSection postId={post.id} onCommentAdded={onRefresh}/>
+            <CommentSection postId={post.id} onCommentAdded={onRefresh} />
           ) : (
             <div className="signin-prompt-container">
               <p>Sign in to join the conversation</p>
