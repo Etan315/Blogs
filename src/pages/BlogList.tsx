@@ -63,6 +63,11 @@ export const BlogList = ({ refreshTrigger, onRefresh }: BlogListProps) => {
           </div>
           <h2>{post.title}</h2>
           <p>{post.content.substring(0, 150)}...</p>
+          {post.image_url && (
+            <div className="list-image-container">
+              <img src={post.image_url} alt="" className="list-post-image" />
+            </div>
+          )}
 
           <div className="post-footer">
             <div className="comment-count-pill">
