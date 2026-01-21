@@ -25,13 +25,12 @@ form.comment-form {
 }
 
 .add-photo-btn:hover {
-  background-color: #f1f3f4;
+  background-color: var(--primary);
 }
 
 .icon-photo {
   width: 20px;
   height: 20px;
-  /* This ensures the SVG icon matches the button color */
   filter: opacity(0.7);
 }
 
