@@ -62,7 +62,7 @@ export const BlogList = ({ refreshTrigger, onRefresh }: BlogListProps) => {
             </div>
           </div>
           <h2>{post.title}</h2>
-          <p>{post.content.substring(0, 150)}...</p>
+          <p>{post.content.substring(0, 250)}...</p>
           {post.image_url && (
             <div className="list-image-container">
               <img src={post.image_url} alt="" className="list-post-image" />
