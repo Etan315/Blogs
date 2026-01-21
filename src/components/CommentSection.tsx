@@ -5,7 +5,10 @@ import { type RootState } from "../store";
 import { uploadImage } from "../utils/uploadImage";
 import PhotoIcon from "../assets/ic-photo.svg";
 
-export const CommentSection = ({ postId, onCommentAdded } : {
+export const CommentSection = ({
+  postId,
+  onCommentAdded,
+}: {
   postId: string;
   onCommentAdded?: () => void;
 }) => {
@@ -55,7 +58,7 @@ export const CommentSection = ({ postId, onCommentAdded } : {
       setNewComment("");
       setCommentImage(null);
       fetchComments();
-      
+
       //This will refresh the page from the ViewPost.tsx
       if (onCommentAdded) {
         onCommentAdded();
@@ -83,7 +86,11 @@ export const CommentSection = ({ postId, onCommentAdded } : {
               </span>
             </div>
             <p className="paragraph-comment">{c.content}</p>
-            {c.image_url && <img src={c.image_url} className="comment-img" />}
+            {c.image_url && (
+              <div className="list-image-container">
+                <img src={c.image_url} alt="" className="list-post-image" />
+              </div>
+            )}
           </div>
         ))}
       </div>
