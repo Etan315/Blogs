@@ -51,7 +51,7 @@ export const CommentSection = ({
           post_id: postId,
           user_id: user.id,
           author_name: displayName,
-          content: newComment,
+          content: newComment || null,
           image_url: imgUrl,
         },
       ]);
@@ -143,7 +143,6 @@ export const CommentSection = ({
           placeholder="Write a comment..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          required
         />
         <div className="action-button">
           <div className="comment-upload-wrapper">
