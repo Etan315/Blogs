@@ -53,11 +53,25 @@ form.comment-form {
 .comment-item {
   display: flex;
   flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.comment-item:hover {
+  box-shadow: var(--shadow2);
+}
+
+.comment-actions > button {
+  background-color: var(--main-bg);
+  color: var(--highlight2);
+}
+
+.comment-actions > button:hover {
+  background-color: var(--primary);
 }
 
 img.comment-img {
-  width: 85%;
   margin: 15px auto;
+  width: 100%;
 }
 
 textarea.comment-input {
@@ -112,8 +126,10 @@ textarea.comment-input {
 
 .header-comment {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-block: 5px;
+  height: 25px;
 }
 
 .paragraph-comment {
@@ -123,7 +139,7 @@ textarea.comment-input {
 
 .list-image-container {
   width: 100%;
-  max-height: 250px; 
+  max-height: 250px;
   overflow-y: scroll;
   margin: 10px 0;
   border-radius: 4px;
@@ -133,4 +149,36 @@ textarea.comment-input {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+img.comment-img-small {
+  max-height: 150px;
+}
+
+.left-btn,
+.right-btn {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  align-items: flex-end;
+}
+
+.right-btn > button,
+.left-btn > button {
+  max-height: 30px;
+  height: 100%;
+  padding: 0 25px;
+}
+
+/* shown when hovered the comment item */
+.comment-item .comment-actions {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.comment-item:hover .comment-actions {
+  opacity: 1;
+  visibility: visible;
 }
