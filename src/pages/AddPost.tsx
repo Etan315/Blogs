@@ -20,7 +20,7 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
 
   const user = useSelector((state: RootState) => state.auth.user);
 
-  if (!isOpen) return null; 
+  if (!isOpen) return null;
 
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,11 +61,18 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Create a New Story</h2>
-        <form className="add-post" onSubmit={handlePublish}>
+        <header className="modal-header-simple">
+          <h1 className="h1-edit">Create a New Story</h1>
+          <button className="close-x" onClick={onClose}>
+            &times;
+          </button>
+        </header>
+
+        <form className="edit-form" onSubmit={handlePublish}>
           <label htmlFor="title">Title</label>
           <input
             id="title"
+            className="edit-input"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -76,38 +83,48 @@ export const AddPost = ({ isOpen, onClose, onPostCreated }: AddPostProps) => {
           <label htmlFor="content">Content</label>
           <textarea
             id="content"
+            className="edit-textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Write your story..."
-            className="text-content"
             required
           />
 
-          <div className="comment-upload-wrapper">
-            <input
-              type="file"
-              id="comment-image-upload"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={(e) => setCommentImage(e.target.files?.[0] || null)}
-            />
-            <label htmlFor="comment-image-upload" className="add-photo-btn">
-              <img src={PhotoIcon} alt="Add Photo" className="icon-photo" />
-              <span>Add Photo</span>
-            </label>
-
-            {commentImage && (
-              <span className="file-name-preview">{commentImage.name}</span>
-            )}
-          </div>
-
           <div className="modal-actions">
-            <button type="button" onClick={onClose} className="btn-cancel">
-              Cancel
-            </button>
-            <button type="submit" disabled={loading} className="btn-publish">
-              {loading ? "Publishing..." : "Publish Post"}
-            </button>
+            <div className="left-btn">
+              <div className="comment-upload-wrapper">
+                <input
+                  type="file"
+                  id="post-image-upload"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => setCommentImage(e.target.files?.[0] || null)}
+                />
+                <label htmlFor="post-image-upload" className="add-photo-btn">
+                  <img src={PhotoIcon} alt="Add Photo" className="icon-photo" />
+                  <span>{commentImage ? commentImage.name : "Add Photo"}</span>
+                </label>
+                
+                {commentImage && (
+                  <button
+                    type="button"
+                    className="btn-remove-photo"
+                    onClick={() => setCommentImage(null)}
+                  >
+                    Remove Photo
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="right-btn">
+              <button type="button" onClick={onClose} className="btn-cancel">
+                Cancel
+              </button>
+              <button type="submit" disabled={loading} className="btn-save">
+                {loading ? "Publishing..." : "Publish Post"}
+              </button>
+            </div>
           </div>
         </form>
       </div>
