@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { type RootState } from "../store";
 import { uploadImage } from "../utils/uploadImage";
 import PhotoIcon from "../assets/ic-photo.svg";
+import { EditComment } from "./modals/EditComment";
 
 export const CommentSection = ({
   postId,
@@ -17,8 +18,10 @@ export const CommentSection = ({
   const [newComment, setNewComment] = useState("");
   const [commentImage, setCommentImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedComment, setSelectedComment] = useState<any | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [hoveredCommentId, setHoveredCommentId] = useState<string | null>(null);
 
-  // Fetch comments for this specific post
   const fetchComments = async () => {
     const { data } = await supabase
       .from("comments")
@@ -39,9 +42,7 @@ export const CommentSection = ({
 
     try {
       let imgUrl = null;
-      if (commentImage) {
-        imgUrl = await uploadImage(commentImage);
-      }
+      if (commentImage) imgUrl = await uploadImage(commentImage);
 
       const displayName = user?.user_metadata?.display_name || user?.email;
 
@@ -58,13 +59,21 @@ export const CommentSection = ({
       setNewComment("");
       setCommentImage(null);
       fetchComments();
-
-      //This will refresh the page from the ViewPost.tsx
-      if (onCommentAdded) {
-        onCommentAdded();
-      }
+      if (onCommentAdded) onCommentAdded();
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    if (!window.confirm("Delete this comment?")) return;
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", commentId);
+    if (!error) {
+      fetchComments();
+      if (onCommentAdded) onCommentAdded();
     }
   };
 
@@ -74,28 +83,60 @@ export const CommentSection = ({
 
       <div className="comments-list">
         {comments.map((c) => (
-          <div key={c.id} className="comment-item">
+          <div
+            key={c.id}
+            className="comment-item"
+            onMouseEnter={() => setHoveredCommentId(c.id)}
+            onMouseLeave={() => setHoveredCommentId(null)}
+          >
             <div className="header-comment">
-              <strong>{c.author_name}</strong>
-              <span className="timestamp">
-                {new Date(c.created_at).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </span>
+              <div className="left">
+                <strong>{c.author_name}</strong>
+                <span className="timestamp">
+                  {new Date(c.created_at).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+
+              {user?.id === c.user_id && hoveredCommentId === c.id && (
+                <div className="comment-actions">
+                  <button
+                    onClick={() => {
+                      setSelectedComment(c);
+                      setIsEditModalOpen(true);
+                    }}
+                  >
+                    ✎
+                  </button>
+                  <button onClick={() => handleDeleteComment(c.id)}>🗑</button>
+                </div>
+              )}
             </div>
-            <p className="paragraph-comment">{c.content}</p>
+            <p>{c.content}</p>
             {c.image_url && (
               <div className="list-image-container">
-                <img src={c.image_url} alt="" className="list-post-image" />
+                <img src={c.image_url} className="comment-img" alt="Comment" />
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* Form to add new comment with another button to add photo */}
+      {selectedComment && (
+        <EditComment
+          comment={selectedComment}
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setSelectedComment(null);
+          }}
+          onUpdate={fetchComments}
+        />
+      )}
+
       <form onSubmit={handleSubmitComment} className="comment-form">
         <textarea
           className="comment-input"
@@ -108,19 +149,15 @@ export const CommentSection = ({
           <div className="comment-upload-wrapper">
             <input
               type="file"
-              id="comment-image-upload"
+              id="comment-upload"
               accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => setCommentImage(e.target.files?.[0] || null)}
             />
-            <label htmlFor="comment-image-upload" className="add-photo-btn">
-              <img src={PhotoIcon} alt="Add Photo" className="icon-photo" />
-              <span>Add Photo</span>
+            <label htmlFor="comment-upload" className="add-photo-btn">
+              <img src={PhotoIcon} className="icon-photo" alt="" />
+              <span>{commentImage ? commentImage.name : "Add Photo"}</span>
             </label>
-
-            {commentImage && (
-              <span className="file-name-preview">{commentImage.name}</span>
-            )}
           </div>
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "..." : "Post"}
