@@ -78,8 +78,9 @@ h1.h1-edit {
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 15px;
+  align-items: flex-end;
 }
 
 .text-content {
@@ -95,7 +96,6 @@ h1.h1-edit {
 .btn-cancel {
   background-color: var(--main-bg);
   color: var(--highlight2);
-  border: 1px solid var(--highlight2-8);
 }
 
 .btn-cancel:hover {
@@ -194,6 +194,10 @@ article.full-post {
 .timestamp {
   opacity: 0.6;
   color: var(--highlight2);
+}
+
+.timestamp {
+  margin-inline: 10px;
 }
 
 .post-item {
